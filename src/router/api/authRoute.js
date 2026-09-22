@@ -21,8 +21,6 @@ router.post(
 
 router.post("/login", Validation.validate(loginSchema), authController.login);
 
-router.post("/refresh-token", Validation.validate(refreshTokenSchema), authController.refreshToken);
-
 router.get("/logout", authMiddleware, authController.logout);
 
 module.exports = router;
