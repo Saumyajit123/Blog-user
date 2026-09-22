@@ -1,0 +1,85 @@
+<%- include("../partials/header") %>
+    <%- include("../partials/navbar") %>
+
+        <div class="container py-5">
+
+            <div class="row justify-content-center">
+
+                <div class="col-xl-8">
+
+                    <h1 class="mb-4">
+                        Edit story
+                    </h1>
+
+                    <%- include("../partials/flash") %>
+
+                        <div class="dashboard-card">
+
+                            <form action="/blogs/edit/<%= blog._id %>" method="POST" enctype="multipart/form-data">
+
+                                <div class="mb-4">
+
+                                    <label class="form-label">
+                                        Title
+                                    </label>
+
+                                    <input type="text" name="title" value="<%= blog.title %>"
+                                        class="form-control form-control-lg" required>
+
+                                </div>
+
+
+                                <% if (blog.image && blog.image.url) { %>
+
+                                    <div class="mb-4">
+
+                                        <img src="<%= blog.image.url %>"
+                                            style="width:180px;height:120px;object-fit:cover" class="rounded-3">
+
+                                    </div>
+
+                                    <% } %>
+
+
+                                        <div class="mb-4">
+
+                                            <label class="form-label">
+                                                Replace cover image
+                                            </label>
+
+                                            <input type="file" name="image" class="form-control" accept="image/*">
+
+                                        </div>
+
+
+                                        <div class="mb-4">
+
+                                            <label class="form-label">
+                                                Content
+                                            </label>
+
+                                            <textarea name="content" class="form-control content-editor"
+                                                required><%= blog.content %></textarea>
+
+                                        </div>
+
+
+                                        <button type="submit" class="btn btn-ink">
+                                            Save changes
+                                        </button>
+
+                                        <a href="/blogs/<%= blog._id %>" class="btn btn-light">
+                                            Cancel
+                                        </a>
+
+                            </form>
+
+                        </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <%- include("../partials/footer") %>

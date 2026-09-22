@@ -1,0 +1,85 @@
+<%- include("../partials/header") %>
+    <%- include("../partials/navbar") %>
+
+        <div class="page-wrapper d-flex align-items-center">
+
+            <div class="container py-5">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-lg-5">
+
+                        <div class="dashboard-card">
+
+                            <div class="mb-4">
+                                <span class="text-uppercase text-muted small">
+                                    Join InkSpace
+                                </span>
+
+                                <h1 class="mt-2">
+                                    Create your account.
+                                </h1>
+
+                                <p class="text-muted">
+                                    Start reading, writing and sharing your ideas.
+                                </p>
+                            </div>
+
+                            <%- include("../partials/flash") %>
+
+                                <form action="/register" method="POST">
+
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Full name
+                                        </label>
+
+                                        <input type="text" name="name" class="form-control" placeholder="Your name"
+                                            required>
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Email address
+                                        </label>
+
+                                        <input type="email" name="email" class="form-control"
+                                            placeholder="you@example.com" required>
+                                    </div>
+
+
+                                    <div class="mb-4">
+                                        <label class="form-label">
+                                            Password
+                                        </label>
+
+                                        <input type="password" name="password" class="form-control"
+                                            placeholder="Minimum 6 characters" required>
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-ink w-100">
+                                        Create Account
+                                    </button>
+
+                                </form>
+
+                                <p class="text-center text-muted mt-4 mb-0">
+                                    Already have an account?
+                                    <a href="/login" class="fw-semibold">
+                                        Login
+                                    </a>
+                                </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <%- include("../partials/footer") %>

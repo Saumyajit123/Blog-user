@@ -1,0 +1,81 @@
+<%- include("../partials/header") %>
+    <%- include("../partials/navbar") %>
+
+        <div class="container py-5">
+
+            <a href="/users" class="text-muted">
+                ← Back to users
+            </a>
+
+
+            <div class="row justify-content-center mt-4">
+
+                <div class="col-lg-7">
+
+                    <div class="dashboard-card text-center">
+
+                        <% if (user.profileImage?.url) { %>
+
+                            <img src="<%= user.profileImage.url %>" class="avatar-lg mb-4">
+
+                            <% } else { %>
+
+                                <div
+                                    class="avatar-lg mx-auto mb-4 d-flex align-items-center justify-content-center bg-light">
+                                    <i class="bi bi-person fs-1"></i>
+                                </div>
+
+                                <% } %>
+
+
+                                    <h1>
+                                        <%= user.name %>
+                                    </h1>
+
+                                    <p class="text-muted">
+                                        <%= user.email %>
+                                    </p>
+
+                                    <span class="badge text-bg-dark">
+                                        <%= user.role %>
+                                    </span>
+
+
+                                    <div class="row mt-5">
+
+                                        <div class="col-6">
+
+                                            <h3>
+                                                <%= blogCount %>
+                                            </h3>
+
+                                            <p class="text-muted">
+                                                Published stories
+                                            </p>
+
+                                        </div>
+
+
+                                        <div class="col-6">
+
+                                            <h3>
+                                                <%= new Date( user.createdAt ).toLocaleDateString() %>
+                                            </h3>
+
+                                            <p class="text-muted">
+                                                Joined
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <%- include("../partials/footer") %>

@@ -1,0 +1,267 @@
+<%- include("../partials/header") %>
+    <%- include("../partials/navbar") %>
+
+        <div class="container-fluid">
+
+            <div class="row">
+
+                <aside class="col-lg-2 sidebar p-4 d-none d-lg-block">
+
+                    <h4 class="mb-4">
+                        Admin
+                    </h4>
+
+                    <a href="/admin/dashboard" class="active">
+                        <i class="bi bi-grid me-2"></i>
+                        Overview
+                    </a>
+
+                    <a href="/users">
+                        <i class="bi bi-people me-2"></i>
+                        Users
+                    </a>
+
+                    <a href="/blogs">
+                        <i class="bi bi-journal-text me-2"></i>
+                        Blogs
+                    </a>
+
+                    <a href="/blogs/create">
+                        <i class="bi bi-plus-circle me-2"></i>
+                        New Blog
+                    </a>
+
+                </aside>
+
+
+                <main class="col-lg-10">
+
+                    <div class="container-fluid py-5">
+
+                        <%- include("../partials/flash") %>
+
+                            <div class="mb-5">
+
+                                <span class="text-muted text-uppercase small">
+                                    Administration
+                                </span>
+
+                                <h1 class="mt-2">
+                                    Good evening, <%= currentUser.name %>.
+                                </h1>
+
+                                <p class="text-muted">
+                                    Here's what's happening across your platform.
+                                </p>
+
+                            </div>
+
+
+                            <!-- STAT CARDS -->
+
+                            <div class="row g-4 mb-5">
+
+                                <div class="col-md-6 col-xl-3">
+                                    <div class="dashboard-card">
+
+                                        <i class="bi bi-people fs-3"></i>
+
+                                        <p class="text-muted mt-3 mb-1">
+                                            Total Users
+                                        </p>
+
+                                        <div class="stat-number">
+                                            <%= totalUsers %>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6 col-xl-3">
+                                    <div class="dashboard-card">
+
+                                        <i class="bi bi-journal-text fs-3"></i>
+
+                                        <p class="text-muted mt-3 mb-1">
+                                            Published Blogs
+                                        </p>
+
+                                        <div class="stat-number">
+                                            <%= totalBlogs %>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6 col-xl-3">
+                                    <div class="dashboard-card">
+
+                                        <i class="bi bi-shield-check fs-3"></i>
+
+                                        <p class="text-muted mt-3 mb-1">
+                                            Administrators
+                                        </p>
+
+                                        <div class="stat-number">
+                                            <%= totalAdmins %>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6 col-xl-3">
+                                    <div class="dashboard-card">
+
+                                        <i class="bi bi-person fs-3"></i>
+
+                                        <p class="text-muted mt-3 mb-1">
+                                            Writers
+                                        </p>
+
+                                        <div class="stat-number">
+                                            <%= totalNormalUsers %>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-4">
+
+                                <!-- USERS -->
+
+                                <div class="col-xl-6">
+
+                                    <div class="table-card">
+
+                                        <div class="p-4 border-bottom">
+
+                                            <div class="d-flex justify-content-between">
+
+                                                <h4 class="mb-0">
+                                                    Recent users
+                                                </h4>
+
+                                                <a href="/users" class="text-muted">
+                                                    View all
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="table-responsive">
+
+                                            <table class="table mb-0">
+
+                                                <tbody>
+
+                                                    <% recentUsers.forEach(user=> { %>
+
+                                                        <tr>
+
+                                                            <td>
+                                                                <strong>
+                                                                    <%= user.name %>
+                                                                </strong>
+
+                                                                <div class="small text-muted">
+                                                                    <%= user.email %>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <span class="badge text-bg-light">
+                                                                    <%= user.role %>
+                                                                </span>
+                                                            </td>
+
+                                                        </tr>
+
+                                                        <% }) %>
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- BLOGS -->
+
+                                <div class="col-xl-6">
+
+                                    <div class="table-card">
+
+                                        <div class="p-4 border-bottom">
+
+                                            <div class="d-flex justify-content-between">
+
+                                                <h4 class="mb-0">
+                                                    Recent stories
+                                                </h4>
+
+                                                <a href="/blogs" class="text-muted">
+                                                    View all
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="table-responsive">
+
+                                            <table class="table mb-0">
+
+                                                <tbody>
+
+                                                    <% recentBlogs.forEach(blog=> { %>
+
+                                                        <tr>
+
+                                                            <td>
+
+                                                                <strong>
+                                                                    <%= blog.title %>
+                                                                </strong>
+
+                                                                <div class="small text-muted">
+                                                                    by <%= blog.authorName || "Unknown" %>
+                                                                </div>
+
+                                                            </td>
+
+                                                        </tr>
+
+                                                        <% }) %>
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                    </div>
+
+                </main>
+
+            </div>
+
+        </div>
+
+        <%- include("../partials/footer") %>

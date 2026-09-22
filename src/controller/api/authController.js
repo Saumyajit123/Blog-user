@@ -10,8 +10,6 @@ const {
   loginSchema,
 } = require("../../validate/authValidation");
 
-
-
 class AuthController {
   // REGISTER USER
   async register(req, res) {
@@ -194,6 +192,78 @@ class AuthController {
       return res.status(500).json({
         success: false,
         message: error.message,
+      });
+    }
+  }
+
+  async refreshToken(req, res) {
+    try {
+      const { refreshToken } = req.body;
+
+      if (!refreshToken) {
+        return res.status(400).json({
+          success: false,
+          message: "Refresh token is required",
+        });
+      }
+
+      const jwt = require("jsonwebtoken");
+
+      // Decode only to get userId
+      const decodedToken = jwt.decode(refreshToken);
+
+      if (!decodedToken || !decodedToken.userId) {
+        return res.status(401).json({
+          success: false,
+          message: "Invalid refresh token",
+        });
+      }
+
+      const user = await User.findById(decodedToken.userId);
+
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: "User not found",
+        });
+      }
+
+      if (!user.secretKey) {
+        return res.status(401).json({
+          success: false,
+          message: "Login session expired",
+        });
+      }
+
+      // Verify refresh token using user's dynamic secret
+      const verifiedToken = jwt.verify(refreshToken, user.secretKey);
+
+      if (verifiedToken.type !== "refresh") {
+        return res.status(401).json({
+          success: false,
+          message: "Invalid refresh token",
+        });
+      }
+
+      // Generate new access token
+      const accessToken = generateAccessToken(
+        user._id.toString(),
+        user.role,
+        user.secretKey,
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: "Access token refreshed successfully",
+        data: {
+          accessToken,
+          role: user.role,
+        },
+      });
+    } catch (error) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid or expired refresh token",
       });
     }
   }

@@ -1,0 +1,73 @@
+<%- include("../partials/header") %>
+    <%- include("../partials/navbar") %>
+
+        <div class="container py-5">
+
+            <div class="row justify-content-center">
+
+                <div class="col-xl-9">
+
+                    <% if (blog.image && blog.image.url) { %>
+
+                        <img src="<%= blog.image.url %>" class="w-100 rounded-4 mb-5"
+                            style="max-height:500px;object-fit:cover" alt="<%= blog.title %>">
+
+                        <% } %>
+
+
+                            <div class="mb-4">
+
+                                <div class="text-muted mb-3">
+                                    By <strong>
+                                        <%= blog.author.name %>
+                                    </strong>
+                                </div>
+
+                                <h1 style="font-size:clamp(2.5rem,6vw,5rem)">
+                                    <%= blog.title %>
+                                </h1>
+
+                                <p class="text-muted">
+                                    <%= new Date(blog.createdAt).toLocaleDateString() %>
+                                </p>
+
+                            </div>
+
+
+                            <hr class="my-5">
+
+
+                            <div class="fs-5" style="line-height:1.9;white-space:pre-line">
+                                <%= blog.content %>
+                            </div>
+
+
+                            <% if (currentUser && (currentUser.role==="Admin" ||
+                                currentUser._id.toString()===blog.author._id.toString())) { %>
+
+                                <div class="mt-5 d-flex gap-2">
+
+                                    <a href="/blogs/edit/<%= blog._id %>" class="btn btn-ink">
+                                        Edit
+                                    </a>
+
+                                    <form action="/blogs/delete/<%= blog._id %>" method="POST">
+
+                                        <button type="submit" class="btn btn-outline-danger"
+                                            onclick="return confirm('Delete this story?')">
+                                            Delete
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                                <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <%- include("../partials/footer") %>
